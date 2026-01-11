@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default function App() {
   return (
     <div>
-      This is the project
+      <h1 className="text-center text-4xl font-bold text-green-600">
+        Tailwind Setup Successful!
+      </h1>
     </div>
-  )
+  );
 }
