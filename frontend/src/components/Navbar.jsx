@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
-  AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineHeart,
 } from "react-icons/ai";
+import SearchBar from "./SearchBar";
 
 export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
-  const [searchFocused, setSearchFocused] = useState(false);
-
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,25 +31,8 @@ export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
           </Link>
 
           {/* Desktop search - centered */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className={`w-full flex items-center bg-white bg-opacity-95 rounded-full px-5 py-2.5 shadow-lg transition-all duration-300 ${
-                searchFocused
-                  ? "ring-4 ring-white/50 scale-105"
-                  : "hover:shadow-xl"
-              }`}
-            >
-              <AiOutlineSearch className="h-5 w-5 text-gray-400 mr-3" />
-              <input
-                type="search"
-                placeholder="Search for products, brands and more..."
-                className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
-                aria-label="Search"
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
-              />
-            </form>
+          <div className="hidden md:flex flex-1">
+            <SearchBar />
           </div>
 
           {/* Action buttons */}
@@ -88,24 +69,9 @@ export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
           </div>
         </div>
 
-        {/* Mobile search row */}
-        <div className="md:hidden pb-4">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className={`w-full flex items-center bg-white bg-opacity-95 rounded-full px-4 py-2.5 shadow-lg transition-all duration-300 ${
-              searchFocused ? "ring-4 ring-white/50" : ""
-            }`}
-          >
-            <AiOutlineSearch className="h-5 w-5 text-gray-400 mr-3" />
-            <input
-              type="search"
-              placeholder="Search products..."
-              className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
-              aria-label="Search"
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-            />
-          </form>
+        {/* Mobile search row - second row */}
+        <div className="md:hidden">
+          <SearchBar isMobile={true} />
         </div>
       </div>
     </header>
