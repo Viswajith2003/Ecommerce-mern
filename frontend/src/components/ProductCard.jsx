@@ -58,11 +58,11 @@ export default function ProductCard({ product = {} }) {
           )}
         </button>
 
-        {/* Quick Add to Cart - Shows on hover */}
+        {/* Quick Add to Cart */}
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
           <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
             <AiOutlineShoppingCart className="w-5 h-5" />
-            <span>Quick Add</span>
+            <span>Add to Cart</span>
           </button>
         </div>
       </div>

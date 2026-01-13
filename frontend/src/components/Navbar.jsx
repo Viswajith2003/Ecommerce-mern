@@ -1,23 +1,21 @@
 import React, { useState } from "react";
-import { 
-  AiOutlinePlus, 
-  AiOutlineSearch, 
+import { Link } from "react-router-dom";
+import {
+  AiOutlineSearch,
   AiOutlineShoppingCart,
-  AiOutlineUser,
   AiOutlineHeart,
-  AiOutlineMenu
 } from "react-icons/ai";
 
 export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
   const [searchFocused, setSearchFocused] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-lg backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main navbar row */}
         <div className="flex items-center justify-between py-4">
           {/* Logo and brand */}
-          <div className="flex items-center gap-3 group cursor-pointer">
+          <Link to="/" className="flex items-center gap-3 group cursor-pointer">
             {logoSrc ? (
               <img
                 src={logoSrc}
@@ -32,14 +30,16 @@ export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
             <span className="font-bold text-xl text-white hidden sm:block transition-all duration-300 group-hover:text-yellow-200">
               {companyName}
             </span>
-          </div>
+          </Link>
 
           {/* Desktop search - centered */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-8">
             <form
               onSubmit={(e) => e.preventDefault()}
-              className={`w-full flex items-center bg-white/95 backdrop-blur-sm rounded-full px-5 py-2.5 shadow-lg transition-all duration-300 ${
-                searchFocused ? 'ring-4 ring-white/50 scale-105' : 'hover:shadow-xl'
+              className={`w-full flex items-center bg-white bg-opacity-95 rounded-full px-5 py-2.5 shadow-lg transition-all duration-300 ${
+                searchFocused
+                  ? "ring-4 ring-white/50 scale-105"
+                  : "hover:shadow-xl"
               }`}
             >
               <AiOutlineSearch className="h-5 w-5 text-gray-400 mr-3" />
@@ -56,20 +56,20 @@ export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
 
           {/* Action buttons */}
           <div className="flex items-center gap-2 sm:gap-4">
-            {/* Mobile menu button */}
-            <button
-              type="button"
-              aria-label="Menu"
-              className="md:hidden p-2 text-white hover:bg-white/20 rounded-lg transition-all duration-300"
+            {/* Add Product button */}
+            <Link
+              to="/addProduct"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all duration-300 font-semibold"
             >
-              <AiOutlineMenu className="w-6 h-6" />
-            </button>
+              <span className="text-lg">+</span>
+              <span>Add Product</span>
+            </Link>
 
             {/* Wishlist button */}
             <button
               type="button"
               aria-label="Wishlist"
-              className="hidden sm:flex items-center gap-2 p-2 text-white hover:bg-white/20 rounded-lg transition-all duration-300 group"
+              className="sm:flex items-center gap-2 p-2 text-white hover:bg-white/20 rounded-lg transition-all duration-300 group"
             >
               <AiOutlineHeart className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </button>
@@ -85,25 +85,6 @@ export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
                 3
               </span>
             </button>
-
-            {/* Add product button */}
-            <button
-              type="button"
-              aria-label="Add product"
-              className="hidden sm:inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-            >
-              <AiOutlinePlus className="w-4 h-4" />
-              <span className="hidden lg:inline">Add Product</span>
-            </button>
-
-            {/* User profile */}
-            <button
-              type="button"
-              aria-label="User profile"
-              className="p-2 text-white hover:bg-white/20 rounded-lg transition-all duration-300 group"
-            >
-              <AiOutlineUser className="w-6 h-6 group-hover:scale-110 transition-transform" />
-            </button>
           </div>
         </div>
 
@@ -111,8 +92,8 @@ export default function Navbar({ companyName = "Ecommerce", logoSrc }) {
         <div className="md:hidden pb-4">
           <form
             onSubmit={(e) => e.preventDefault()}
-            className={`w-full flex items-center bg-white/95 backdrop-blur-sm rounded-full px-4 py-2.5 shadow-lg transition-all duration-300 ${
-              searchFocused ? 'ring-4 ring-white/50' : ''
+            className={`w-full flex items-center bg-white bg-opacity-95 rounded-full px-4 py-2.5 shadow-lg transition-all duration-300 ${
+              searchFocused ? "ring-4 ring-white/50" : ""
             }`}
           >
             <AiOutlineSearch className="h-5 w-5 text-gray-400 mr-3" />

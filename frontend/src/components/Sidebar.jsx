@@ -4,10 +4,10 @@ import { AiOutlineFilter, AiOutlineDollar } from "react-icons/ai";
 export default function Sidebar({ onChange } = {}) {
   const [price, setPrice] = useState(100);
   const [categories, setCategories] = useState({
-    Beauty: false,
     Electronics: false,
-    Dress: false,
-    Shoes: false,
+    Fashion: false,
+    Beauty: false,
+    Sports: false,
   });
   const [sort, setSort] = useState("Normal");
 
