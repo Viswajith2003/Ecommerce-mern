@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { AiOutlinePlus, AiOutlineCloudUpload } from "react-icons/ai";
+import { addProducts } from "../services/api.js";
 
 export default function AddProduct() {
   const [formData, setFormData] = useState({
-    name: "",
+    title: "",
     description: "",
     category: "",
     price: "",
@@ -27,7 +28,7 @@ export default function AddProduct() {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -37,43 +38,36 @@ export default function AddProduct() {
     }
   }
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });
 
     try {
-      // Create FormData for file upload
+      
       const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.name);
+      formDataToSend.append("title", formData.title);
       formDataToSend.append("description", formData.description);
       formDataToSend.append("category", formData.category);
       formDataToSend.append("price", formData.price);
-      formDataToSend.append("originalPrice", formData.originalPrice);
+      formDataToSend.append("OrgPrice", formData.originalPrice);
       formDataToSend.append("rating", formData.rating);
       formDataToSend.append("discount", formData.discount);
-      
+
       if (imageFile) {
         formDataToSend.append("image", imageFile);
       }
 
-      const res = await fetch("/api/products", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      if (!res.ok) throw new Error("Request failed");
-
-      const data = await res.json();
+      const data = await addProducts(formDataToSend);
+      console.log("Product created:", data);
       setMessage({
         type: "success",
-        text: `Product "${data.name || formData.name}" created successfully!`,
+        text: `Product "${data.title || formData.title}" created successfully!`,
       });
 
       // Reset form
       setFormData({
-        name: "",
+        title: "",
         description: "",
         category: "",
         price: "",
@@ -96,18 +90,12 @@ export default function AddProduct() {
   return (
     <div className="flex-1 bg-gradient-to-br from-gray-50 via-white to-purple-50 p-4 lg:p-8">
       <div className="max-w-4xl mx-auto">
-        
         <div className="mb-8 text-center">
-         
-            
-            <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Add Product
-            </h1>
-          
-         
+          <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Add Product
+          </h1>
         </div>
 
-       
         {message.text && (
           <div
             className={`mb-6 p-4 rounded-xl border-2 ${
@@ -120,23 +108,21 @@ export default function AddProduct() {
           </div>
         )}
 
-      
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden ">
           <form onSubmit={handleSubmit} className="p-6 lg:p-8 ">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              
               <div className="lg:col-span-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="title"
                   className="block text-sm font-semibold text-gray-700 mb-2"
                 >
                   Product Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="title"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
                   required
                   placeholder="Enter product name"
@@ -144,7 +130,6 @@ export default function AddProduct() {
                 />
               </div>
 
-             
               <div className="lg:col-span-2">
                 <label
                   htmlFor="description"
@@ -164,7 +149,6 @@ export default function AddProduct() {
                 />
               </div>
 
-             
               <div>
                 <label
                   htmlFor="category"
@@ -206,7 +190,6 @@ export default function AddProduct() {
                 </div>
               </div>
 
-            
               <div>
                 <label
                   htmlFor="rating"
@@ -229,7 +212,6 @@ export default function AddProduct() {
                 />
               </div>
 
-             
               <div className="lg:col-span-2">
                 <label
                   htmlFor="image"
@@ -262,7 +244,7 @@ export default function AddProduct() {
                     </div>
                   </label>
                 </div>
-                
+
                 {imagePreview && (
                   <div className="mt-4 p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border-2 border-gray-200">
                     <p className="text-xs font-semibold text-gray-600 mb-2">
@@ -280,7 +262,6 @@ export default function AddProduct() {
                 )}
               </div>
 
-             
               <div>
                 <label
                   htmlFor="price"
@@ -307,7 +288,6 @@ export default function AddProduct() {
                 </div>
               </div>
 
-              
               <div>
                 <label
                   htmlFor="originalPrice"
@@ -333,7 +313,6 @@ export default function AddProduct() {
                 </div>
               </div>
 
-            
               <div className="lg:col-span-2">
                 <label
                   htmlFor="discount"
@@ -398,7 +377,7 @@ export default function AddProduct() {
                 type="button"
                 onClick={() => {
                   setFormData({
-                    name: "",
+                    title: "",
                     description: "",
                     category: "",
                     price: "",
@@ -419,9 +398,6 @@ export default function AddProduct() {
             </div>
           </form>
         </div>
-
-       
-        
       </div>
     </div>
   );

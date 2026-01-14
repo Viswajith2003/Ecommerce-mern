@@ -12,7 +12,7 @@ export const getProducts = async (req, res) => {
 export const CreateProduct = async (req, res) => {
   try {
     const {
-      name,
+      title,
       description,
       category,
       price,
@@ -24,7 +24,7 @@ export const CreateProduct = async (req, res) => {
     const imgPath = req.file ? `/uploads/products/${req.file.filename}` : null;
 
     const newProduct = await ProductModel.create({
-      name,
+      title,
       description,
       category,
       price,
