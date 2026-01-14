@@ -7,6 +7,8 @@ import AddProduct from "./pages/AddProduct";
 
 export default function App() {
   return (
+    
+
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Navbar />
@@ -31,9 +33,10 @@ export default function App() {
                 <AddProduct />
               </div>
             }
-          />
+            />
         </Routes>
       </div>
     </Router>
+            
   );
 }

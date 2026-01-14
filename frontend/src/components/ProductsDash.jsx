@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProductCard from "./ProductCard";
 import sampleProducts from "../datas/ProductDatas.js";
 import { Pagination } from "./Pagination.jsx";
+import { FilterContext } from "../context/FilterContext.jsx";
 
 export default function ProductsDash() {
   // const [products, setProducts] = useState([]);
@@ -23,7 +24,24 @@ export default function ProductsDash() {
   //   getProducts();
   // }, []);
   // Sample product data
-  
+
+  const {sortOption}=useContext(FilterContext)
+
+  const sortedProducts=[...sampleProducts]
+
+  switch(sortOption){
+    case "price-asc":
+      sortedProducts.sort((a,b)=>(a.price-b.price))
+      break;
+    case "price-desc":
+      sortedProducts.sort((a,b)=>(b.price-a.price))
+      break;
+    case "rating":
+      sortedProducts.sort((a,b)=>(b.rating-a.rating))
+      break;
+    default:
+      break;
+  }
 
   
 
@@ -39,7 +57,7 @@ export default function ProductsDash() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {sampleProducts.map((product) => (
+        {sortedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineFilter, AiOutlineDollar } from "react-icons/ai";
+import { FilterContext } from "../context/FilterContext";
 
-export default function Sidebar({ onChange } = {}) {
+export default function Sidebar({  } = {}) {
+
+  const {sortOption,setSortOption}=useContext(FilterContext)
+
   const [price, setPrice] = useState(100);
   const [categories, setCategories] = useState({
     Electronics: false,
@@ -9,24 +13,24 @@ export default function Sidebar({ onChange } = {}) {
     Beauty: false,
     Sports: false,
   });
-  const [sort, setSort] = useState("Normal");
+  // const [sort, setSort] = useState("Normal");
 
   function toggleCategory(name) {
     const next = { ...categories, [name]: !categories[name] };
     setCategories(next);
-    onChange?.({ price, categories: next, sort });
+    // onChange?.({ price, categories: next, sort });
   }
 
   function handlePrice(e) {
     const val = Number(e.target.value);
     setPrice(val);
-    onChange?.({ price: val, categories, sort });
+    // onChange?.({ price: val, categories, sort });
   }
 
   function handleSort(e) {
     const val = e.target.value;
-    setSort(val);
-    onChange?.({ price, categories, sort: val });
+    setSortOption(val);
+    // onChange?.({ price, categories, sort: val });
   }
 
   return (
@@ -114,7 +118,7 @@ export default function Sidebar({ onChange } = {}) {
         <h3 className="text-sm font-semibold text-gray-800 mb-4">Sort By</h3>
         <div className="relative">
           <select
-            value={sort}
+            value={sortOption}
             onChange={handleSort}
             className="w-full appearance-none bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-lg px-4 py-3 pr-10 text-sm font-medium text-gray-700 cursor-pointer hover:border-indigo-300 focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-300"
           >
@@ -141,8 +145,8 @@ export default function Sidebar({ onChange } = {}) {
             Dress: false,
             Shoes: false,
           });
-          setSort("Normal");
-          onChange?.({ price: 100, categories: {}, sort: "Normal" });
+          setSortOption("Normal");
+          // onChange?.({ price: 100, categories: {}, sort: "Normal" });
         }}
         className="w-full mt-6 py-3 text-sm font-semibold text-gray-600 hover:text-red-600 border-2 border-gray-200 hover:border-red-300 rounded-lg hover:bg-red-50 transition-all duration-300"
       >
