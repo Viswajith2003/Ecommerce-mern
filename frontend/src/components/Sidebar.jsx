@@ -4,38 +4,34 @@ import { FilterContext } from "../context/FilterContext";
 
 export default function Sidebar({  } = {}) {
 
-  const {sortOption,setSortOption,categories,setCategories}=useContext(FilterContext)
+  const {sortOption,setSortOption,categories,setCategories,maxprice,setMaxPrice}=useContext(FilterContext)
 
-  const [price, setPrice] = useState(100);
-  // const [categories, setCategories] = useState({
-  //   Electronics: false,
-  //   Fashion: false,
-  //   Beauty: false,
-  //   Sports: false,
-  // });
-  // const [sort, setSort] = useState("Normal");
+  
+  const [tempPrice, setTempPrice] = useState(maxprice);
 
   function toggleCategory(name) {
     const next = { ...categories, [name]: !categories[name] };  //toggles the specific category by flipping its boolean value
     setCategories(next);
-    // onChange?.({ price, categories: next, sort });
+   
   }
 
   function handlePrice(e) {
     const val = Number(e.target.value);
-    setPrice(val);
-    // onChange?.({ price: val, categories, sort });
+    setTempPrice(val); 
+  }
+
+  function applyPrice() {
+    setMaxPrice(tempPrice);
   }
 
   function handleSort(e) {
     const val = e.target.value;
     setSortOption(val);
-    // onChange?.({ price, categories, sort: val });
   }
 
   return (
     <aside className="w-full lg:w-72 bg-white rounded-2xl shadow-xl p-6 m-4 lg:sticky lg:top-24 lg:h-fit border border-gray-100">
-      {/* Header */}
+     
       <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
         <div className="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg">
           <AiOutlineFilter className="w-5 h-5 text-white" />
@@ -43,7 +39,7 @@ export default function Sidebar({  } = {}) {
         <h2 className="text-xl font-bold text-gray-800">Filters</h2>
       </div>
 
-      {/* Price Range Section */}
+     
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-4">
           <AiOutlineDollar className="w-5 h-5 text-indigo-600" />
@@ -56,11 +52,11 @@ export default function Sidebar({  } = {}) {
               type="range"
               min="0"
               max="1000"
-              value={price}
+              value={tempPrice}
               onChange={handlePrice}
               className="w-full h-2 bg-gradient-to-r from-indigo-200 to-purple-200 rounded-lg appearance-none cursor-pointer slider"
               style={{
-                background: `linear-gradient(to right, #6366f1 0%, #a855f7 ${(price / 1000) * 100}%, #e0e7ff ${(price / 1000) * 100}%, #f3e8ff 100%)`
+                background: `linear-gradient(to right, #6366f1 0%, #a855f7 ${(tempPrice / 1000) * 100}%, #e0e7ff ${(tempPrice / 1000) * 100}%, #f3e8ff 100%)`
               }}
             />
           </div>
@@ -69,10 +65,10 @@ export default function Sidebar({  } = {}) {
             <div className="flex items-center gap-2 bg-gradient-to-br from-indigo-50 to-purple-50 px-4 py-2 rounded-lg border border-indigo-200">
               <span className="text-xs text-gray-600">$0</span>
               <span className="text-gray-400">-</span>
-              <span className="text-sm font-bold text-indigo-600">${price}</span>
+              <span className="text-sm font-bold text-indigo-600">${tempPrice}</span>
             </div>
             <button
-              onClick={() => onChange?.({ price, categories, sort })}
+              onClick={applyPrice}
               className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               Apply
@@ -81,7 +77,7 @@ export default function Sidebar({  } = {}) {
         </div>
       </div>
 
-      {/* Category Section */}
+      
       <div className="mb-8">
         <h3 className="text-sm font-semibold text-gray-800 mb-4">Category</h3>
         <div className="space-y-3">
@@ -113,7 +109,7 @@ export default function Sidebar({  } = {}) {
         </div>
       </div>
 
-      {/* Sort Section */}
+      
       <div>
         <h3 className="text-sm font-semibold text-gray-800 mb-4">Sort By</h3>
         <div className="relative">
@@ -135,10 +131,11 @@ export default function Sidebar({  } = {}) {
         </div>
       </div>
 
-      {/* Clear Filters Button */}
+      
       <button
         onClick={() => {
-          setPrice(100);
+          setTempPrice(1000);
+          setMaxPrice(1000);
           setCategories({
             Beauty: false,
             Electronics: false,
@@ -146,7 +143,7 @@ export default function Sidebar({  } = {}) {
             Shoes: false,
           });
           setSortOption("Normal");
-          // onChange?.({ price: 100, categories: {}, sort: "Normal" });
+         
         }}
         className="w-full mt-6 py-3 text-sm font-semibold text-gray-600 hover:text-red-600 border-2 border-gray-200 hover:border-red-300 rounded-lg hover:bg-red-50 transition-all duration-300"
       >

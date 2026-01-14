@@ -11,9 +11,10 @@ export const FilterProvider=({children})=>{
         Beauty:false,
         Sports:false,
     })
+    const [maxprice,setMaxPrice]=useState(0)
 
     return(
-        <FilterContext.Provider value={{sortOption,setSortOption,categories,setCategories}}>
+        <FilterContext.Provider value={{sortOption,setSortOption,categories,setCategories,maxprice,setMaxPrice}}>
             {children}
         </FilterContext.Provider>
     )

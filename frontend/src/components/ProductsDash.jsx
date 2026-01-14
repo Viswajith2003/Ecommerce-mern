@@ -25,7 +25,7 @@ export default function ProductsDash() {
   // }, []);
   // Sample product data
 
-  const {sortOption,categories}=useContext(FilterContext)
+  const {sortOption,categories,maxprice}=useContext(FilterContext)
 
   const sortedProducts=[...sampleProducts]
 
@@ -47,10 +47,16 @@ export default function ProductsDash() {
 
   const selectedCategories=Object.keys(categories).filter((cat)=>categories[cat])
   let filteredProducts=sortedProducts;
-  if(selectedCategories.length>0){
+  if(selectedCategories.length>0)
+  {
     filteredProducts=sortedProducts.filter((product)=>selectedCategories.includes(product.category))
   }
+  
 
+  if(maxprice>0)
+  {
+    filteredProducts=filteredProducts.filter(product=>product.price<=maxprice)
+  }
   
 
   return (
