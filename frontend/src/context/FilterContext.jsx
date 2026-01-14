@@ -12,9 +12,26 @@ export const FilterProvider=({children})=>{
         Sports:false,
     })
     const [maxprice,setMaxPrice]=useState(0)
+    const [searchQuery,setSearchQuery]=useState("")
+
+    const [currentPage,setCurrentPage]=useState(1)
+    const [products_per_page]=useState(8)
 
     return(
-        <FilterContext.Provider value={{sortOption,setSortOption,categories,setCategories,maxprice,setMaxPrice}}>
+        <FilterContext.Provider 
+        value={{
+                sortOption,
+                setSortOption,
+                categories,
+                setCategories,
+                maxprice,
+                setMaxPrice,
+                searchQuery,
+                setSearchQuery,
+                currentPage,
+                setCurrentPage,
+                products_per_page
+            }}>
             {children}
         </FilterContext.Provider>
     )

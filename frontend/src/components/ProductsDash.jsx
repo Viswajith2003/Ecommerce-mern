@@ -24,10 +24,8 @@ export default function ProductsDash() {
   //   getProducts();
   // }, []);
   // Sample product data
-  const [currentPage,setCurrentPage]=useState(1)
-  const products_per_page=8;
-
-  const {sortOption,categories,maxprice}=useContext(FilterContext)
+  
+  const {sortOption,categories,maxprice,searchQuery,currentPage,setCurrentPage,products_per_page}=useContext(FilterContext)
 
   const sortedProducts=[...sampleProducts]
 
@@ -60,6 +58,13 @@ export default function ProductsDash() {
     filteredProducts=filteredProducts.filter(product=>product.price<=maxprice)
   }
 
+  if(searchQuery)
+  {
+    filteredProducts=filteredProducts.filter(product=>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  }
+
   //Pagination.
   const totalPages=Math.ceil(filteredProducts.length/products_per_page);
   const lastIndex=currentPage*products_per_page;
@@ -67,8 +72,8 @@ export default function ProductsDash() {
   const currentProducts=filteredProducts.slice(firstIndex,lastIndex)
 
   useEffect(()=>{
-    setCurrentPage(1)
-  },[sortOption,categories,maxprice])
+    setCurrentPage(1) // Reset to page 1 when filters change
+  },[sortOption,categories,maxprice,searchQuery])
   
 
   return (

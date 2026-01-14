@@ -134,7 +134,7 @@ export default function Sidebar({  } = {}) {
       
       <button
         onClick={() => {
-          setTempPrice(1000);
+          setTempPrice(0);
           setMaxPrice(1000);
           setCategories({
             Beauty: false,
@@ -143,6 +143,7 @@ export default function Sidebar({  } = {}) {
             Shoes: false,
           });
           setSortOption("Normal");
+          
          
         }}
         className="w-full mt-6 py-3 text-sm font-semibold text-gray-600 hover:text-red-600 border-2 border-gray-200 hover:border-red-300 rounded-lg hover:bg-red-50 transition-all duration-300"
