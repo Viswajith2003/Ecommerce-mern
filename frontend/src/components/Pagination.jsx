@@ -1,40 +1,42 @@
-import React, { useState } from "react";
-import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import React from "react";
 
-export function Pagination() {
-  const [active, setActive] = useState(1);
-  const totalPages = 5;
+export function Pagination({ totalPage, activePage, setActivePage }) {
+  const totalPages = totalPage;
 
   const getItemProps = (index) => ({
-    onClick: () => setActive(index),
-    className: `w-10 h-10 rounded-full font-semibold transition-all duration-300 ${
-      active === index
-        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110"
-        : "border-2 border-gray-300 text-gray-700 hover:border-indigo-500 hover:bg-indigo-50"
+    onClick: () => setActivePage(index),
+    className: `w-10 h-10 rounded-full font-medium text-sm transition-all duration-200 flex items-center justify-center ${
+      activePage === index
+        ? "bg-gray-900 text-white shadow-md"
+        : "bg-gray-50 text-gray-700 hover:bg-gray-100 active:bg-gray-200"
     }`,
   });
 
   const next = () => {
-    if (active === totalPages) return;
-    setActive(active + 1);
+    if (activePage === totalPages) return;
+    setActivePage(activePage + 1);
   };
 
   const prev = () => {
-    if (active === 1) return;
-    setActive(active - 1);
+    if (activePage === 1) return;
+    setActivePage(activePage - 1);
   };
 
   return (
     <div className="flex items-center gap-4">
+      {/* Previous Button */}
       <button
         onClick={prev}
-        disabled={active === 1}
-        className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-300 text-gray-700 hover:border-indigo-500 hover:bg-indigo-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        disabled={activePage === 1}
+        className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all"
       >
-        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
-        <span className="hidden sm:inline">Previous</span>
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Previous
       </button>
 
+      {/* Page Numbers */}
       <div className="flex items-center gap-2">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <button key={page} {...getItemProps(page)}>
@@ -43,13 +45,16 @@ export function Pagination() {
         ))}
       </div>
 
+      {/* Next Button */}
       <button
         onClick={next}
-        disabled={active === totalPages}
-        className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-gray-300 text-gray-700 hover:border-indigo-500 hover:bg-indigo-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        disabled={activePage === totalPages}
+        className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all"
       >
-        <span className="hidden sm:inline">Next</span>
-        <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        Next
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
       </button>
     </div>
   );

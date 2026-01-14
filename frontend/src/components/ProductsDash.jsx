@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import sampleProducts from "../datas/ProductDatas.js";
 import { Pagination } from "./Pagination.jsx";
@@ -24,6 +24,8 @@ export default function ProductsDash() {
   //   getProducts();
   // }, []);
   // Sample product data
+  const [currentPage,setCurrentPage]=useState(1)
+  const products_per_page=8;
 
   const {sortOption,categories,maxprice}=useContext(FilterContext)
 
@@ -51,12 +53,22 @@ export default function ProductsDash() {
   {
     filteredProducts=sortedProducts.filter((product)=>selectedCategories.includes(product.category))
   }
-  
+
 
   if(maxprice>0)
   {
     filteredProducts=filteredProducts.filter(product=>product.price<=maxprice)
   }
+
+  //Pagination.
+  const totalPages=Math.ceil(filteredProducts.length/products_per_page);
+  const lastIndex=currentPage*products_per_page;
+  const firstIndex=(currentPage-1)*products_per_page;
+  const currentProducts=filteredProducts.slice(firstIndex,lastIndex)
+
+  useEffect(()=>{
+    setCurrentPage(1)
+  },[sortOption,categories,maxprice])
   
 
   return (
@@ -71,13 +83,13 @@ export default function ProductsDash() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
+        {currentProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
       <div className="flex justify-center mt-12">
-        <Pagination />
+        <Pagination totalPage={totalPages} activePage={currentPage} setActivePage={setCurrentPage}/>
       </div>
     </div>
   );
