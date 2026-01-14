@@ -11,10 +11,35 @@ export const getProducts = async (req, res) => {
 
 export const CreateProduct = async (req, res) => {
   try {
-    const { name } = req.body;
-    const newProduct = await ProductModel.create({ name });
-    res.json(newProduct);
+    const {
+      name,
+      description,
+      category,
+      price,
+      OrgPrice,
+      rating,
+      discount,
+    } = req.body;
+
+    const imgPath = req.file ? `/uploads/products/${req.file.filename}` : null;
+
+    const newProduct = await ProductModel.create({
+      name,
+      description,
+      category,
+      price,
+      OrgPrice,
+      rating: rating || 0,
+      discount: discount || 0,
+      image: imgPath,
+    });
+
+    res.status(201).json(newProduct);
   } catch (error) {
-    res.status(500).json("Unable to create product");
+    console.error("Error creating product:", error);
+    res.status(500).json({ 
+      message: "Unable to create product",
+      error: error.message 
+    });
   }
 };

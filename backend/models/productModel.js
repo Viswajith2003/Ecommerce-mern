@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
+      enum: ['Electronics', 'Fashion', 'Beauty', 'Sports']
     },
     price: {
       type: Number,
@@ -30,11 +31,10 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    images: [
-      {
-        type: String,
-      },
-    ],
+    image: {
+      type: String,
+      required:true
+    },
   },
   { timestamps: true }
 );
