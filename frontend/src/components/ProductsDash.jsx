@@ -25,7 +25,7 @@ export default function ProductsDash() {
   // }, []);
   // Sample product data
 
-  const {sortOption}=useContext(FilterContext)
+  const {sortOption,categories}=useContext(FilterContext)
 
   const sortedProducts=[...sampleProducts]
 
@@ -43,6 +43,14 @@ export default function ProductsDash() {
       break;
   }
 
+
+
+  const selectedCategories=Object.keys(categories).filter((cat)=>categories[cat])
+  let filteredProducts=sortedProducts;
+  if(selectedCategories.length>0){
+    filteredProducts=sortedProducts.filter((product)=>selectedCategories.includes(product.category))
+  }
+
   
 
   return (
@@ -57,7 +65,7 @@ export default function ProductsDash() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {sortedProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

@@ -4,19 +4,19 @@ import { FilterContext } from "../context/FilterContext";
 
 export default function Sidebar({  } = {}) {
 
-  const {sortOption,setSortOption}=useContext(FilterContext)
+  const {sortOption,setSortOption,categories,setCategories}=useContext(FilterContext)
 
   const [price, setPrice] = useState(100);
-  const [categories, setCategories] = useState({
-    Electronics: false,
-    Fashion: false,
-    Beauty: false,
-    Sports: false,
-  });
+  // const [categories, setCategories] = useState({
+  //   Electronics: false,
+  //   Fashion: false,
+  //   Beauty: false,
+  //   Sports: false,
+  // });
   // const [sort, setSort] = useState("Normal");
 
   function toggleCategory(name) {
-    const next = { ...categories, [name]: !categories[name] };
+    const next = { ...categories, [name]: !categories[name] };  //toggles the specific category by flipping its boolean value
     setCategories(next);
     // onChange?.({ price, categories: next, sort });
   }
