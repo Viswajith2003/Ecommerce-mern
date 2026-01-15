@@ -6,6 +6,8 @@ import router from "./routes/ProductRoutes.js";
 
 dotenv.config();
 
+// Server configuration
+
 const app = express();
 app.use("/uploads", express.static("uploads"));
 
