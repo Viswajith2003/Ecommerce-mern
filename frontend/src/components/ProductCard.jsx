@@ -22,7 +22,17 @@ export default function ProductCard({ product = {} }) {
 
   // Fallback image URL
   const fallbackImage = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop";
-  const displayImage = imageError ? fallbackImage : (image || fallbackImage);
+  
+  // Construct full image URL for backend images
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return fallbackImage;
+    // If it's already a full URL (starts with http), use it as is
+    if (imagePath.startsWith('http')) return imagePath;
+    // Otherwise, prepend the backend URL
+    return `http://localhost:5001${imagePath}`;
+  };
+  
+  const displayImage = imageError ? fallbackImage : getImageUrl(image);
 
   return (
     <article className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 w-full max-w-sm border border-gray-100">

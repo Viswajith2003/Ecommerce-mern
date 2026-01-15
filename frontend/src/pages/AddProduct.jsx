@@ -8,7 +8,6 @@ export default function AddProduct() {
     description: "",
     category: "",
     price: "",
-    originalPrice: "",
     rating: "",
     discount: "",
   });
@@ -50,14 +49,12 @@ export default function AddProduct() {
       formDataToSend.append("description", formData.description);
       formDataToSend.append("category", formData.category);
       formDataToSend.append("price", formData.price);
-      formDataToSend.append("OrgPrice", formData.originalPrice);
       formDataToSend.append("rating", formData.rating);
       formDataToSend.append("discount", formData.discount);
 
       if (imageFile) {
         formDataToSend.append("image", imageFile);
       }
-
       const data = await addProducts(formDataToSend);
       console.log("Product created:", data);
       setMessage({
@@ -71,7 +68,6 @@ export default function AddProduct() {
         description: "",
         category: "",
         price: "",
-        originalPrice: "",
         rating: "",
         discount: "",
       });
@@ -288,31 +284,6 @@ export default function AddProduct() {
                 </div>
               </div>
 
-              <div>
-                <label
-                  htmlFor="originalPrice"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  Original Price ($)
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">
-                    $
-                  </span>
-                  <input
-                    type="number"
-                    id="originalPrice"
-                    name="originalPrice"
-                    value={formData.originalPrice}
-                    onChange={handleChange}
-                    min="0"
-                    step="0.01"
-                    placeholder="0.00"
-                    className="w-full placeholder:text-gray-400 px-4 py-3 pl-8 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-300"
-                  />
-                </div>
-              </div>
-
               <div className="lg:col-span-2">
                 <label
                   htmlFor="discount"
@@ -381,7 +352,6 @@ export default function AddProduct() {
                     description: "",
                     category: "",
                     price: "",
-                    originalPrice: "",
                     rating: "",
                     discount: "",
                   });
