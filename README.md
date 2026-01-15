@@ -1,4 +1,4 @@
-# 🛍️ E-Commerce MERN Application
+# 🛍️ Mini E-Commerce MERN Application
 
 A full-stack e-commerce web application built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring product browsing, filtering, search functionality, and a modern, responsive UI.
 
