@@ -13,13 +13,9 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ['Electronics', 'Fashion', 'Beauty', 'Sports']
+      enum: ['Electronics', 'Fashion', 'Beauty', 'Sports']  //The enum property is a validator in Mongoose that restricts the category field to only accept specific values from the provided list.
     },
     price: {
-      type: Number,
-      default: 0,
-    },
-    OrgPrice: {
       type: Number,
       default: 0,
     },
@@ -33,7 +29,7 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required:true
+      required: true
     },
   },
   { timestamps: true }

@@ -16,7 +16,6 @@ export const CreateProduct = async (req, res) => {
       description,
       category,
       price,
-      OrgPrice,
       rating,
       discount,
     } = req.body;
@@ -28,7 +27,6 @@ export const CreateProduct = async (req, res) => {
       description,
       category,
       price,
-      OrgPrice,
       rating: rating || 0,
       discount: discount || 0,
       image: imgPath,
