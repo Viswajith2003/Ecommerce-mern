@@ -29,7 +29,7 @@ export default function ProductCard({ product = {} }) {
     // If it's already a full URL (starts with http), use it as is
     if (imagePath.startsWith('http')) return imagePath;
     // Otherwise, prepend the backend URL
-    return `http://localhost:5001${imagePath}`;
+    return `https://ecommerce-mern-3xht.onrender.com${imagePath}`;
   };
   
   const displayImage = imageError ? fallbackImage : getImageUrl(image);
