@@ -7,10 +7,18 @@ import { addProducts } from "../services/api.js";
 // Validation Schema
 const productValidationSchema = Yup.object({
   title: Yup.string()
+    .trim()
+    .test('no-only-spaces', 'Product name cannot contain only spaces', (value) => {
+      return value && value.trim().length > 0;
+    })
     .min(3, "Product name must be at least 3 characters")
     .max(100, "Product name must not exceed 100 characters")
     .required("Product name is required"),
   description: Yup.string()
+    .trim()
+    .test('no-only-spaces', 'Description cannot contain only spaces', (value) => {
+      return value && value.trim().length > 0;
+    })
     .min(10, "Description must be at least 10 characters")
     .max(500, "Description must not exceed 500 characters")
     .required("Description is required"),
