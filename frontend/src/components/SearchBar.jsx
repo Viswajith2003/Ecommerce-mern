@@ -1,18 +1,23 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FilterContext } from "../context/FilterContext";
-import sampleProducts from "../datas/ProductDatas.js";
+// import sampleProducts from "../datas/ProductDatas.js";
+
 
 export default function SearchBar({ isMobile = false }) {
-  const { searchQuery, setSearchQuery } = useContext(FilterContext);
+  const { searchQuery, setSearchQuery ,products} = useContext(FilterContext);
   const [showSuggestion, setShowSuggestion] = useState(false);
+  // const [products, setProducts] = useState([]);
+
 
   const handleChange = (e) => {
     setSearchQuery(e.target.value);
     setShowSuggestion(true);
   };
 
-  const suggestions = sampleProducts.filter((product) =>
+  
+
+  const suggestions = products.filter((product) =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -22,7 +27,9 @@ export default function SearchBar({ isMobile = false }) {
   };
 
   return (
-    <div className={`relative ${isMobile ? "w-full" : "flex-1 max-w-2xl mx-8"}`}>
+    <div
+      className={`relative ${isMobile ? "w-full" : "flex-1 max-w-2xl mx-8"}`}
+    >
       <form
         onSubmit={(e) => e.preventDefault()}
         className="w-full flex items-center bg-white bg-opacity-95 rounded-full px-5 py-2.5 shadow-lg"
@@ -39,7 +46,6 @@ export default function SearchBar({ isMobile = false }) {
         />
       </form>
 
-      
       {showSuggestion && searchQuery && (
         <ul className="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg mt-2 max-h-60 overflow-y-auto z-50">
           {suggestions.length > 0 ? (

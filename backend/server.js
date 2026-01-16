@@ -12,15 +12,11 @@ const app = express();
 app.use("/uploads", express.static("uploads"));
 
 app.use(express.json());
-
-// CORS configuration - use environment variable or default to production URL
-const allowedOrigin = process.env.FRONTEND_URL || "https://ecommerce-mern-roan.vercel.app";
-
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: "https://ecommerce-mern-roan.vercel.app",
     credentials: true,
-    methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
+    methods: ["POST", "GET"],
   })
 );
 app.use("/api/products", router);

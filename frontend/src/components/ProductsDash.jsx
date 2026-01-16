@@ -3,12 +3,8 @@ import ProductCard from "./ProductCard";
 // import sampleProducts from "../datas/ProductDatas.js";
 import { Pagination } from "./Pagination.jsx";
 import { FilterContext } from "../context/FilterContext.jsx";
-import { getProducts } from "../services/api.js";
 
 export default function ProductsDash() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   const {
     sortOption,
     categories,
@@ -17,24 +13,9 @@ export default function ProductsDash() {
     currentPage,
     setCurrentPage,
     products_per_page,
+    products,
+    loading,
   } = useContext(FilterContext);
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const data = await getProducts();
-      setProducts(data);
-      console.log(data);
-    } catch (error) {
-      console.error("fetching data failed", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const sortedProducts = [...products];
 
