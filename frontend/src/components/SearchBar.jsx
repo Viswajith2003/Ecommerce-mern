@@ -8,7 +8,7 @@ export default function SearchBar({ isMobile = false }) {
   const [showSuggestion, setShowSuggestion] = useState(false);
 
   const handleChange = (e) => {
-    dispatch({ type: ACTIONS.SET_SEARCH_QUERY, payload: e.target.value });
+    dispatch({ type: ACTIONS.setSearchQuery, payload: e.target.value });
     setShowSuggestion(true);
   };
 
@@ -19,7 +19,7 @@ export default function SearchBar({ isMobile = false }) {
   );
 
   const handleSuggestionClick = (title) => {
-    dispatch({ type: ACTIONS.SET_SEARCH_QUERY, payload: title });
+    dispatch({ type: ACTIONS.setSearchQuery, payload: title });
     setShowSuggestion(false);
   };
 

@@ -9,7 +9,7 @@ export default function Sidebar({  } = {}) {
   const [tempPrice, setTempPrice] = useState(maxprice);
 
   function toggleCategory(name) {
-    dispatch({ type: ACTIONS.TOGGLE_CATEGORY, payload: name });
+    dispatch({ type: ACTIONS.toggleCategory, payload: name });
   }
 
   function handlePrice(e) {
@@ -18,12 +18,12 @@ export default function Sidebar({  } = {}) {
   }
 
   function applyPrice() {
-    dispatch({ type: ACTIONS.SET_MAX_PRICE, payload: tempPrice });
+    dispatch({ type: ACTIONS.setMaxPrice, payload: tempPrice });
   }
 
   function handleSort(e) {
     const val = e.target.value;
-    dispatch({ type: ACTIONS.SET_SORT_OPTION, payload: val });
+    dispatch({ type: ACTIONS.setSortOption, payload: val });
   }
 
   return (
@@ -131,7 +131,7 @@ export default function Sidebar({  } = {}) {
       
       <button
         onClick={() => {
-          dispatch({ type: ACTIONS.RESET_FILTERS });
+          dispatch({ type: ACTIONS.resetFilters });
           setTempPrice(0);
         }}
         className="w-full mt-6 py-3 text-sm font-semibold text-gray-600 hover:text-red-600 border-2 border-gray-200 hover:border-red-300 rounded-lg hover:bg-red-50 transition-all duration-300"

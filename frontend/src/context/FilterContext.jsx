@@ -3,7 +3,7 @@ import { getProducts } from "../services/api.js";
 
 export const FilterContext = createContext();
 
-// Initial State
+
 const initialState = {
   sortOption: "Normal",
   categories: {
@@ -20,35 +20,35 @@ const initialState = {
   loading: true,
 };
 
-// Action Types
+
 export const ACTIONS = {
-  SET_SORT_OPTION: "SET_SORT_OPTION",
-  SET_CATEGORIES: "SET_CATEGORIES",
-  TOGGLE_CATEGORY: "TOGGLE_CATEGORY",
-  SET_MAX_PRICE: "SET_MAX_PRICE",
-  SET_SEARCH_QUERY: "SET_SEARCH_QUERY",
-  SET_CURRENT_PAGE: "SET_CURRENT_PAGE",
-  SET_PRODUCTS: "SET_PRODUCTS",
-  SET_LOADING: "SET_LOADING",
-  RESET_FILTERS: "RESET_FILTERS",
+  setSortOption: "setSortOption",
+  setCategories: "setCategories",
+  toggleCategory: "toggleCategory",
+  setMaxPrice: "setMaxPrice",
+  setSearchQuery: "setSearchQuery",
+  setCurrentPage: "setCurrentPage",
+  setProducts: "setProducts",
+  setLoading: "setLoading",
+  resetFilters: "resetFilters",
 };
 
-// Reducer Function
+
 function filterReducer(state, action) {
   switch (action.type) {
-    case ACTIONS.SET_SORT_OPTION:
+    case ACTIONS.setSortOption:
       return {
         ...state,
         sortOption: action.payload,
       };
 
-    case ACTIONS.SET_CATEGORIES:
+    case ACTIONS.setCategories:
       return {
         ...state,
         categories: action.payload,
       };
 
-    case ACTIONS.TOGGLE_CATEGORY:
+    case ACTIONS.toggleCategory:
       return {
         ...state,
         categories: {
@@ -57,39 +57,39 @@ function filterReducer(state, action) {
         },
       };
 
-    case ACTIONS.SET_MAX_PRICE:
+    case ACTIONS.setMaxPrice:
       return {
         ...state,
         maxprice: action.payload,
       };
 
-    case ACTIONS.SET_SEARCH_QUERY:
+    case ACTIONS.setSearchQuery:
       return {
         ...state,
         searchQuery: action.payload,
         currentPage: 1, // Auto-reset to page 1 when searching
       };
 
-    case ACTIONS.SET_CURRENT_PAGE:
+    case ACTIONS.setCurrentPage:
       return {
         ...state,
         currentPage: action.payload,
       };
 
-    case ACTIONS.SET_PRODUCTS:
+    case ACTIONS.setProducts:
       return {
         ...state,
         products: action.payload,
         loading: false,
       };
 
-    case ACTIONS.SET_LOADING:
+    case ACTIONS.setLoading:
       return {
         ...state,
         loading: action.payload,
       };
 
-    case ACTIONS.RESET_FILTERS:
+    case ACTIONS.resetFilters:
       return {
         ...state,
         sortOption: "Normal",
@@ -109,21 +109,21 @@ function filterReducer(state, action) {
   }
 }
 
-// Provider Component
+
 export const FilterProvider = ({ children }) => {
   const [state, dispatch] = useReducer(filterReducer, initialState);
 
-  // Fetch products on mount
+ 
   useEffect(() => {
     const fetchProducts = async () => {
-      dispatch({ type: ACTIONS.SET_LOADING, payload: true });
+      dispatch({ type: ACTIONS.setLoading, payload: true });
       try {
         const data = await getProducts();
-        dispatch({ type: ACTIONS.SET_PRODUCTS, payload: data });
+        dispatch({ type: ACTIONS.setProducts, payload: data });
         console.log("Products fetched:", data);
       } catch (error) {
         console.error("Error fetching products:", error);
-        dispatch({ type: ACTIONS.SET_LOADING, payload: false });
+        dispatch({ type: ACTIONS.setLoading, payload: false });
       }
     };
     fetchProducts();

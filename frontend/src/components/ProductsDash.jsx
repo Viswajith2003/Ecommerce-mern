@@ -62,7 +62,7 @@ export default function ProductsDash() {
   const currentProducts = filteredProducts.slice(firstIndex, lastIndex);
 
   useEffect(() => {
-    dispatch({ type: ACTIONS.SET_CURRENT_PAGE, payload: 1 }); // Reset to page 1 when filters change
+    dispatch({ type: ACTIONS.setCurrentPage, payload: 1 }); // Reset to page 1 when filters change
   }, [sortOption, categories, maxprice, searchQuery, dispatch]);
 
   return (
@@ -92,7 +92,7 @@ export default function ProductsDash() {
             <Pagination
               totalPage={totalPages}
               activePage={currentPage}
-              setActivePage={(page) => dispatch({ type: ACTIONS.SET_CURRENT_PAGE, payload: page })}
+              setActivePage={(page) => dispatch({ type: ACTIONS.setCurrentPage, payload: page })}
             />
           </div>
         </div>
