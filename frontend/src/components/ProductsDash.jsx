@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import { Pagination } from "./Pagination.jsx";
 import { FilterContext, ACTIONS } from "../context/FilterContext.jsx";
+import useProductSort from "../hooks/useProductSort.js";
 
 export default function ProductsDash() {
   const { state, dispatch } = useContext(FilterContext);
@@ -17,21 +18,7 @@ export default function ProductsDash() {
     loading,
   } = state;
 
-  const sortedProducts = [...products];
-
-  switch (sortOption) {
-    case "price-asc":
-      sortedProducts.sort((a, b) => a.price - b.price);
-      break;
-    case "price-desc":
-      sortedProducts.sort((a, b) => b.price - a.price);
-      break;
-    case "rating":
-      sortedProducts.sort((a, b) => b.rating - a.rating);
-      break;
-    default:
-      break;
-  }
+  const sortedProducts=useProductSort(products,sortOption)
 
   const selectedCategories = Object.keys(categories).filter(
     (cat) => categories[cat]
