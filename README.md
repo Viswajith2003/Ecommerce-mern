@@ -35,7 +35,8 @@ A full-stack e-commerce web application built with the MERN stack (MongoDB, Expr
 - **Tailwind CSS** - Utility-first CSS framework
 - **Axios** - HTTP client
 - **React Icons** - Icon library
-- **Context API** - State management
+- **Context API + useReducer** - Centralized state management
+- **Formik + Yup** - Form validation
 
 ### Backend
 - **Node.js** - Runtime environment

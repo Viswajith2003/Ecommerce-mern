@@ -1,18 +1,15 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineFilter, AiOutlineDollar } from "react-icons/ai";
-import { FilterContext } from "../context/FilterContext";
+import { FilterContext, ACTIONS } from "../context/FilterContext";
 
 export default function Sidebar({  } = {}) {
-
-  const {sortOption,setSortOption,categories,setCategories,maxprice,setMaxPrice}=useContext(FilterContext)
-
+  const { state, dispatch } = useContext(FilterContext);
+  const { sortOption, categories, maxprice } = state;
   
   const [tempPrice, setTempPrice] = useState(maxprice);
 
   function toggleCategory(name) {
-    const next = { ...categories, [name]: !categories[name] };  //toggles the specific category by flipping its boolean value
-    setCategories(next);
-   
+    dispatch({ type: ACTIONS.TOGGLE_CATEGORY, payload: name });
   }
 
   function handlePrice(e) {
@@ -21,12 +18,12 @@ export default function Sidebar({  } = {}) {
   }
 
   function applyPrice() {
-    setMaxPrice(tempPrice);
+    dispatch({ type: ACTIONS.SET_MAX_PRICE, payload: tempPrice });
   }
 
   function handleSort(e) {
     const val = e.target.value;
-    setSortOption(val);
+    dispatch({ type: ACTIONS.SET_SORT_OPTION, payload: val });
   }
 
   return (
@@ -134,17 +131,8 @@ export default function Sidebar({  } = {}) {
       
       <button
         onClick={() => {
+          dispatch({ type: ACTIONS.RESET_FILTERS });
           setTempPrice(0);
-          setMaxPrice(1000);
-          setCategories({
-            Beauty: false,
-            Electronics: false,
-            Dress: false,
-            Shoes: false,
-          });
-          setSortOption("Normal");
-          
-         
         }}
         className="w-full mt-6 py-3 text-sm font-semibold text-gray-600 hover:text-red-600 border-2 border-gray-200 hover:border-red-300 rounded-lg hover:bg-red-50 transition-all duration-300"
       >

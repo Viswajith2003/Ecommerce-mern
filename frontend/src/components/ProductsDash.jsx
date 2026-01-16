@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
-// import sampleProducts from "../datas/ProductDatas.js";
 import { Pagination } from "./Pagination.jsx";
-import { FilterContext } from "../context/FilterContext.jsx";
+import { FilterContext, ACTIONS } from "../context/FilterContext.jsx";
 
 export default function ProductsDash() {
+  const { state, dispatch } = useContext(FilterContext);
+  
   const {
     sortOption,
     categories,
     maxprice,
     searchQuery,
     currentPage,
-    setCurrentPage,
     products_per_page,
     products,
     loading,
-  } = useContext(FilterContext);
+  } = state;
 
   const sortedProducts = [...products];
 
@@ -62,8 +62,8 @@ export default function ProductsDash() {
   const currentProducts = filteredProducts.slice(firstIndex, lastIndex);
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to page 1 when filters change
-  }, [sortOption, categories, maxprice, searchQuery]);
+    dispatch({ type: ACTIONS.SET_CURRENT_PAGE, payload: 1 }); // Reset to page 1 when filters change
+  }, [sortOption, categories, maxprice, searchQuery, dispatch]);
 
   return (
     <>
@@ -92,7 +92,7 @@ export default function ProductsDash() {
             <Pagination
               totalPage={totalPages}
               activePage={currentPage}
-              setActivePage={setCurrentPage}
+              setActivePage={(page) => dispatch({ type: ACTIONS.SET_CURRENT_PAGE, payload: page })}
             />
           </div>
         </div>

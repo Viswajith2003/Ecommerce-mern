@@ -1,17 +1,14 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FilterContext } from "../context/FilterContext";
-// import sampleProducts from "../datas/ProductDatas.js";
-
+import { FilterContext, ACTIONS } from "../context/FilterContext";
 
 export default function SearchBar({ isMobile = false }) {
-  const { searchQuery, setSearchQuery ,products} = useContext(FilterContext);
+  const { state, dispatch } = useContext(FilterContext);
+  const { searchQuery, products } = state;
   const [showSuggestion, setShowSuggestion] = useState(false);
-  // const [products, setProducts] = useState([]);
-
 
   const handleChange = (e) => {
-    setSearchQuery(e.target.value);
+    dispatch({ type: ACTIONS.SET_SEARCH_QUERY, payload: e.target.value });
     setShowSuggestion(true);
   };
 
@@ -22,7 +19,7 @@ export default function SearchBar({ isMobile = false }) {
   );
 
   const handleSuggestionClick = (title) => {
-    setSearchQuery(title);
+    dispatch({ type: ACTIONS.SET_SEARCH_QUERY, payload: title });
     setShowSuggestion(false);
   };
 
